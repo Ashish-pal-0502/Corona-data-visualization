@@ -1,0 +1,10 @@
+body {
+	background-color: rgb(199, 227, 227);
+}
+
+.Upload {
+	display: flex;
+	margin-top: 400px;
+	background-color: red;
+
+}
