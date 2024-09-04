@@ -8,6 +8,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Details from "./components/Details";
+import Chartjs from "./components/Chartjs";
+import Signup from "./components/Signup";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +54,23 @@ const router = createBrowserRouter([
       <>
         <Navbar />
         <Details />
+      </>
+    ),
+  },
+  {
+    path: "/chartjs",
+    element: (
+      <>
+        <Chartjs />
+      </>
+    ),
+  },
+  {
+    path: "/signup",
+    element: (
+      <>
+        <Navbar />
+        <Signup />
       </>
     ),
   },

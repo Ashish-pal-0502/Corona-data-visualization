@@ -1,5 +1,9 @@
 body {
 	background-color: rgb(199, 227, 227);
+	font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+	/* font-weight: 300; */
+	/* font-size: medium; */
+	width: 90%;
 }
 
 .Upload {
@@ -7,4 +11,9 @@ body {
 	margin-top: 400px;
 	background-color: red;
 
+}
+
+.container input::placeholder {
+	font-size: 12px;
+	font-style: italic;
 }

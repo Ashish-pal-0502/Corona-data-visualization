@@ -4,48 +4,42 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { handleError, handleSuccess } from "/utils";
 
-function Login() {
-  const [loginInfo, setLoginInfo] = useState({
+function Signup() {
+  const [signupInfo, setSignupInfo] = useState({
+    name: "",
     email: "",
     password: "",
   });
-
   const navigate = useNavigate();
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     console.log(name, value);
-    const copyLoginInfo = { ...loginInfo };
-    copyLoginInfo[name] = value;
-    setLoginInfo(copyLoginInfo);
+    const copySignupInfo = { ...signupInfo };
+    copySignupInfo[name] = value;
+    setSignupInfo(copySignupInfo);
   };
 
-  const handleLogin = async (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
-    const { email, password } = loginInfo;
-    if (!email || !password) {
-      return handleError("email and password are required");
+    const { name, email, password } = signupInfo;
+    if (!name || !email || !password) {
+      return handleError("name, email and password are required");
     }
     try {
-      const url = `http://localhost:3000/api/auth/login`;
+      const url = `http://localhost:3000/api/auth/signup`;
       const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(loginInfo),
+        body: JSON.stringify(signupInfo),
       });
       const result = await response.json();
-      const { success, message, jwtToken, name, error } = result;
+      const { success, message, error } = result;
       if (success) {
         handleSuccess(message);
-        localStorage.setItem("token", jwtToken);
-        localStorage.setItem("loggedInUser", name);
         setTimeout(() => {
-          navigate("/data");
-        }, 2000);
-        setTimeout(() => {
-          window.location.reload();
+          navigate("/login");
         }, 2000);
       } else if (error) {
         const details = error?.details[0].message;
@@ -54,16 +48,28 @@ function Login() {
         handleError(message);
       }
       console.log(result);
-    } catch (error) {
-      handleError(error);
+    } catch (err) {
+      handleError(err);
     }
   };
 
   return (
     <div>
-      <h1>Login</h1>
-      <form className="w-50 border-outline" onSubmit={handleLogin}>
-        <div class="form-group">
+      <h1>SignUp</h1>
+      <form className="w-50 border-outline" onSubmit={handleSignup}>
+        <div class="form-group container">
+          <label for="exampleInputEmail1">Name</label>
+          <input
+            onChange={handleChange}
+            type="text"
+            name="name"
+            class="form-control "
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+            placeholder="Enter Name..."
+            value={signupInfo.name}
+            required
+          />
           <label for="exampleInputEmail1">Email address</label>
           <input
             onChange={handleChange}
@@ -72,12 +78,15 @@ function Login() {
             class="form-control"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
-            placeholder="Enter email"
-            value={loginInfo.email}
+            placeholder="Enter email..."
+            value={signupInfo.email}
             required
           />
+          <small id="emailHelp" class="form-text text-muted">
+            We'll never share your email with anyone else.
+          </small>
         </div>
-        <div class="form-group">
+        <div class="form-group container">
           <label for="exampleInputPassword1">Password</label>
           <input
             onChange={handleChange}
@@ -85,18 +94,17 @@ function Login() {
             name="password"
             class="form-control"
             id="exampleInputPassword1"
-            placeholder="Enter Password"
-            value={loginInfo.password}
+            placeholder="Enter Password..."
+            value={signupInfo.password}
             required
           />
         </div>
         <br />
-
         <button type="submit" className="btn btn-info">
-          Login
+          Signup
         </button>
         <span>
-          Does't have an account ?<Link to="/signup">Signup</Link>
+          Already have an account ?<Link to="/login">Login</Link>
         </span>
       </form>
       <ToastContainer />
@@ -104,4 +112,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Signup;

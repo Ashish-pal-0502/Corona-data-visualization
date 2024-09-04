@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { handleError, handleSuccess } from "/utils";
+
 const FileUpload = () => {
   const [file, setFile] = useState(null);
 
@@ -14,7 +18,7 @@ const FileUpload = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/users/upload",
+        "http://localhost:3000/api/upload/upload",
         formData,
         {
           headers: {
@@ -23,9 +27,9 @@ const FileUpload = () => {
         }
       );
 
-      alert("data is added in the database"); // Handle the JSON data from the backend
+      handleSuccess("file is uploaded successfully");
     } catch (error) {
-      console.error("Error uploading file:", error);
+      handleError("Error uploading file", error);
     }
   };
 
@@ -43,6 +47,7 @@ const FileUpload = () => {
             Upload
           </button>
         </div>
+        <ToastContainer />
       </div>
     </>
   );

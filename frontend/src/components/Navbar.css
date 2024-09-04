@@ -1,0 +1,25 @@
+.navv {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	background-color: #333;
+	padding: 10px 0;
+	z-index: 1000;
+}
+
+body {
+	padding-top: 70px;
+	/* Adjust according to the height of your navbar */
+}
+
+
+.Weluser {
+	color: white;
+
+
+
+}
+
+form button p {
+	justify-content: end;
+}
